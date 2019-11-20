@@ -19,16 +19,32 @@ class App extends Component{
       {
         id: 3,
         title: 'Meeting with Boss',
-        completed: false
+        completed: true
       }
     ]
   }
+
+  // Toggle Complete
+  markComplete=(id)=>{
+    this.setState({todos: this.state.todos.map(todo=>{
+      if(todo.id === id){
+          todo.completed = !todo.completed
+      }
+      return todo
+    })})
+}
+
+// Delete Todo
+delTodo = (id) =>{
+  this.setState({ todos:[...this.state.todos.filter(todo => todo.id !==id)] });
+}
+
   render(){
     console.log(this.state.todos)
     return (
       <div className="App">
          {/* todos={this.state.todos} is a property in which the Todos.js use */}
-        <Todos todos={this.state.todos}/>
+        <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo= {this.delTodo}/>
       </div>
     );
   }
